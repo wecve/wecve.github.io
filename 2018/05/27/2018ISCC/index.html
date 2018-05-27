@@ -25,12 +25,12 @@
 <meta property="og:site_name" content="s7edge&#39;s blog">
 <meta property="og:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！文章最下面有相关题目、脚本下载 一、RSA256题目告知了是RSA算法，RSA算法不多说了，百度上一大堆详解下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY-----  MDwwDQYJKoZIhvcNAQEBB">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://wecve.com/2018/05/27/2018ISCC/RSA_1.jpg">
-<meta property="og:updated_time" content="2018-05-27T07:54:00.798Z">
+<meta property="og:image" content="c:/Users/刘仁杰/Desktop/blog/source/_posts/RSA_1.jpg">
+<meta property="og:updated_time" content="2018-05-27T09:05:19.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2018 ISCC Reverse Writeup">
 <meta name="twitter:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！文章最下面有相关题目、脚本下载 一、RSA256题目告知了是RSA算法，RSA算法不多说了，百度上一大堆详解下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY-----  MDwwDQYJKoZIhvcNAQEBB">
-<meta name="twitter:image" content="http://wecve.com/2018/05/27/2018ISCC/RSA_1.jpg">
+<meta name="twitter:image" content="c:/Users/刘仁杰/Desktop/blog/source/_posts/RSA_1.jpg">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -86,7 +86,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://wecve.com/2018/05/27/2018ISCC/" data-id="cjhoj8obm00009ouipn04djuh" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://wecve.com/2018/05/27/2018ISCC/" data-id="cjholn6mc0000ywuism9hi81e" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -98,7 +98,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----  </span><br><span class="line">MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38JQSrpUW5RC1gp7npMK  </span><br><span class="line">/0UceOxV1VXrAgMBAAE=  </span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
 <p>直接把这个公钥丢到下面网站分析：</p>
 <p><a href="http://tool.chacuo.net/cryptrsakeyparse" target="_blank" rel="noopener">在线Rsa 公私钥分解</a></p>
-<p><img src="./RSA_1.jpg" alt="avatar"></p>
+<p><img src="C:\Users\刘仁杰\Desktop\blog\source\_posts\RSA_1.jpg" alt="avatar"></p>
 <p>模数n = D99E952296A6D960DFC2504ABA545B9442D60A7B9E930AFF451C78EC55D555EB</p>
 <p>再到下面网站分解质因数：(注意这里只能填十进制数)</p>
 <p><a href="http://factordb.com/" target="_blank" rel="noopener">在线分解质因数</a></p>
