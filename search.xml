@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title><![CDATA[2018 ISCC Reverse Writeup]]></title>
-    <url>%2F2018%2F05%2F27%2F2018%20ISCC%20wp%2F</url>
-    <content type="text"><![CDATA[ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！ [TOC] 一、RSA256题目告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： —–BEGIN PUBLIC KEY—–MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38JQSrpUW5RC1gp7npMK/0UceOxV1VXrAgMBAAE=—–END PUBLIC KEY—– 直接把这个公钥丢到下面网站分析： [在线Rsa 公私钥分解][1]{:target=”_blank”}[1]: http://tool.chacuo.net/cryptrsakeyparse 1$ hexo new "My New Post" More info: Writing]]></content>
+    <url>%2F2018%2F05%2F27%2F2018ISCC%2F</url>
+    <content type="text"><![CDATA[ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！文章最下面有相关题目、脚本下载 一、RSA256题目告知了是RSA算法，RSA算法不多说了，百度上一大堆详解下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY----- MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38JQSrpUW5RC1gp7npMK /0UceOxV1VXrAgMBAAE= -----END PUBLIC KEY----- 直接把这个公钥丢到下面网站分析： 在线Rsa 公私钥分解{:target=”_blank”} 模数n = D99E952296A6D960DFC2504ABA545B9442D60A7B9E930AFF451C78EC55D555EB 再到下面网站分解质因数：(注意这里只能填十进制数) 在线分解质因数{:target=”_blank”} 得到结果： q = 302825536744096741518546212761194311477 p = 325045504186436346209877301320131277983 这里推荐一个脚本 rsatool.py 专门用于RSA算法的脚本加上参数运行脚本，生成私钥private.pem 命令如下： 1python rsatool.py -o private.pem -e 65537 -p 302825536744096741518546212761194311477 -q 325045504186436346209877301320131277983t 最后再用openssl，一波带走这个题 命令如下： 123openssl rsautl -decrypt -in encrypted.message1 -inkey private.pem -out flag1.decopenssl rsautl -decrypt -in encrypted.message1 -inkey private.pem -out flag1.decopenssl rsautl -decrypt -in encrypted.message1 -inkey private.pem -out flag1.dec More info: Writing]]></content>
   </entry>
 </search>
