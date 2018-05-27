@@ -6,11 +6,11 @@
   
   <meta name="description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！
 [TOC]
-一、RSA256题目很明显告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系
+一、RSA256题目告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系
 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路)
 公钥内容如下：
 
-—–" />
+—–BEG" />
   
 
   
@@ -21,17 +21,17 @@
   
   <title>2018 ISCC Reverse Writeup | s7edge&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！ [TOC] 一、RSA256题目很明显告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下：  —–BEGIN PUBLIC KEY—–MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIh">
+  <meta name="description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！ [TOC] 一、RSA256题目告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下：  —–BEGIN PUBLIC KEY—–MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANm">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2018 ISCC Reverse Writeup">
 <meta property="og:url" content="http://wecve.com/2018/04/26/hello-world/index.html">
 <meta property="og:site_name" content="s7edge&#39;s blog">
-<meta property="og:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！ [TOC] 一、RSA256题目很明显告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下：  —–BEGIN PUBLIC KEY—–MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIh">
+<meta property="og:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！ [TOC] 一、RSA256题目告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下：  —–BEGIN PUBLIC KEY—–MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANm">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T05:16:38.553Z">
+<meta property="og:updated_time" content="2018-05-27T05:31:40.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2018 ISCC Reverse Writeup">
-<meta name="twitter:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！ [TOC] 一、RSA256题目很明显告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下：  —–BEGIN PUBLIC KEY—–MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIh">
+<meta name="twitter:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！ [TOC] 一、RSA256题目告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系 下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下：  —–BEGIN PUBLIC KEY—–MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANm">
   
   
     <link rel="icon" href="/css/images/favicon.ico">
@@ -87,7 +87,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://wecve.com/2018/04/26/hello-world/" data-id="cjhodgsl2000084uiare8dlu7" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://wecve.com/2018/04/26/hello-world/" data-id="cjhoe1hxm0001qcui3ai64sxu" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -95,7 +95,7 @@
       
         <p>ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路<br>PS：菜鸡的第一篇博客文，写得不好请见谅！</p>
 <p>[TOC]</p>
-<h3 id="一、RSA256"><a href="#一、RSA256" class="headerlink" title="一、RSA256"></a>一、RSA256</h3><pre><code>题目很明显告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系
+<h3 id="一、RSA256"><a href="#一、RSA256" class="headerlink" title="一、RSA256"></a>一、RSA256</h3><pre><code>题目告知了是RSA算法，本以为是一道常规逆向题，结果感觉和逆向没啥关系
 </code></pre><p>下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路)</p>
 <p>公钥内容如下：</p>
 <blockquote>
@@ -128,6 +128,14 @@
 
 
     
+<nav class="nav-single">
+    <h3 class="assistive-text">文章导航</h3>
+    
+        <span class="nav-previous"><a href="/2018/05/27/2018ISCC/" rel="prev"><span class="meta-nav">←</span> 2018 ISCC Reverse Writeup</a></span>
+    
+    
+</nav><!-- .nav-single -->
+
 
 
 
@@ -153,6 +161,10 @@
     <h3 class="widget-title">Recents</h3>
     <div class="widget-content">
       <ul>
+        
+          <li>
+            <a href="/2018/05/27/2018ISCC/">2018 ISCC Reverse Writeup</a>
+          </li>
         
           <li>
             <a href="/2018/04/26/hello-world/">2018 ISCC Reverse Writeup</a>
