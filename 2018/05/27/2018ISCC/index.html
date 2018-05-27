@@ -26,7 +26,7 @@
 <meta property="og:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！文章最下面有相关题目、脚本下载 一、RSA256题目告知了是RSA算法，RSA算法不多说了，百度上一大堆详解下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY-----  MDwwDQYJKoZIhvcNAQEBB">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://wecve.com/2018/05/27/2018ISCC/RSA_1.jpg">
-<meta property="og:updated_time" content="2018-05-27T07:22:40.392Z">
+<meta property="og:updated_time" content="2018-05-27T07:30:43.462Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2018 ISCC Reverse Writeup">
 <meta name="twitter:description" content="ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路PS：菜鸡的第一篇博客文，写得不好请见谅！文章最下面有相关题目、脚本下载 一、RSA256题目告知了是RSA算法，RSA算法不多说了，百度上一大堆详解下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路) 公钥内容如下： 1234-----BEGIN PUBLIC KEY-----  MDwwDQYJKoZIhvcNAQEBB">
@@ -86,7 +86,7 @@
         
         <div class="comments-link">
             
-            <a href="javascript:void(0);" data-url="http://wecve.com/2018/05/27/2018ISCC/" data-id="cjhohz79w0000owuicx71nqe4" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
+            <a href="javascript:void(0);" data-url="http://wecve.com/2018/05/27/2018ISCC/" data-id="cjhoiv5qk0000jwuifgg3lnns" class="leave-reply bdsharebuttonbox" data-cmd="more">Share</a>
         </div><!-- .comments-link -->
       </header><!-- .entry-header -->
 
@@ -106,7 +106,7 @@
 <p>这里推荐一个脚本 rsatool.py 专门用于RSA算法的脚本<br>加上参数运行脚本，生成私钥private.pem 命令如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python rsatool.py -o private.pem -e 65537 -p 302825536744096741518546212761194311477 -q 325045504186436346209877301320131277983t</span><br></pre></td></tr></table></figure>
 <p>最后再用openssl，一波带走这个题 命令如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message1 -inkey private.pem -out flag1.dec</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message1 -inkey private.pem -out flag1.dec</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message1 -inkey private.pem -out flag1.dec</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message1 -inkey private.pem -out flag1.dec</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message2 -inkey private.pem -out flag2.dec</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message3 -inkey private.pem -out flag3.dec</span><br></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
 
       
