@@ -7,21 +7,21 @@
     </url>
     
     <url>
+        <loc>http://wecve.com/tags/</loc>
+        <lastmod>2018-05-29T04:36:27.798Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    
+    <url>
         <loc>http://wecve.com/about/</loc>
-        <lastmod>2018-05-29T02:51:27.858Z</lastmod>
+        <lastmod>2018-05-29T04:35:03.302Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
         <loc>http://wecve.com/404.html</loc>
-        <lastmod>2018-05-28T03:58:45.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-    
-    <url>
-        <loc>http://wecve.com/tags/</loc>
         <lastmod>2018-05-28T03:58:45.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
