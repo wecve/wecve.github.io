@@ -1,37 +1,241 @@
-extends includes/layout
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/favicon.ico">
 
-block content
+    <title>
+        
+        2018 ISCC Reverse Writeup - undefined
+        
+    </title>
 
-    section#wrapper.post
-        article
-            header
-                h1!=page.title
-                h2.headline!=date(page.date, 'MMM DD, YYYY h:mm')
-                    |·
-                    |#{wordcount(page.content)} words
-                    |·
-                    |#{min2read(page.content)} minutes read
-                    span.tags
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/aircloud.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
 
-            if toc(page.content)
-                div#toc!=toc(page.content,{list_number:false})
+<body>
 
-            section#post-body!=page.content
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
 
-            - var prev = page.prev ? page.prev.path : false;
-            - var next = page.next ? page.next.path : false;
-            nav#post-nav
-                span.prev
-                    if page.prev
-                        a(href=url_for(prev))
-                            span.arrow ←
-                            | Newer Posts
-                span.next
-                    if page.next
-                        a(href=url_for(next))
-                            | Older Posts
-                            span.arrow →
+<div class="index-about">
+    <i> a poor guy who likes reverse </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/" />
+        </div>
+        <div class="name">
+            <i>s7edge</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li >
+                <a href="/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>HOME</span>
+                </a>
+            </li>
+            <li >
+                <a href="/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>TAGS</span>
+                </a>
+            </li>
+            <li >
+                <a href="/archives">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>ARCHIVES</span>
+                </a>
+            </li>
+            <li >
+                <a href="/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>ABOUT</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>SEARCH</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、RSA256-100pt"><span class="toc-text">一、RSA256(100pt)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、My-math-is-bad-150pt"><span class="toc-text">二、My math is bad(150pt)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、leftright-150pt"><span class="toc-text">三、leftright(150pt)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、obfuscation-and-encode（250pt）"><span class="toc-text">四、obfuscation and encode（250pt）</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input"/>
+            <span id="begin-search">search</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+        <div class="index-about-mobile">
+            <i> a poor guy who likes reverse </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        2018 ISCC Reverse Writeup
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">Post：<span>2018-05-27 13:32:13</span></span>
+        
+        </span>
+        <span class="attr">Visit：<span id="busuanzi_value_page_pv"></span>
+</span>
+</span>
+    </div>
+    <div class="post-content ">
+        <p>ISCC比赛结束了，这里给各位表哥奉上逆向题的解题思路<br>PS：菜鸡的第一篇博客文，写得不好请见谅！文章最下面有相关题目、脚本下载</p>
+<h3 id="一、RSA256-100pt"><a href="#一、RSA256-100pt" class="headerlink" title="一、RSA256(100pt)"></a>一、RSA256(100pt)</h3><p>题目告知了是RSA算法，RSA算法不多说了，百度上一大堆详解<br>下载下来得到三个加密后的文件，和一个公钥(我把题目搞丢了，大概说下思路)</p>
+<p>公钥内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">-----BEGIN PUBLIC KEY-----  </span><br><span class="line">MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhANmelSKWptlg38JQSrpUW5RC1gp7npMK  </span><br><span class="line">/0UceOxV1VXrAgMBAAE=  </span><br><span class="line">-----END PUBLIC KEY-----</span><br></pre></td></tr></table></figure>
+<p>直接把这个公钥丢到下面网站分析：</p>
+<p><a href="http://tool.chacuo.net/cryptrsakeyparse" target="_blank" rel="noopener">在线Rsa 公私钥分解</a></p>
+<p><img src="https://s1.ax1x.com/2018/05/27/Chf1oD.jpg" alt="Chf1oD.jpg"></p>
+<p>模数n = D99E952296A6D960DFC2504ABA545B9442D60A7B9E930AFF451C78EC55D555EB</p>
+<p>再到下面网站分解质因数：(注意这里只能填十进制数)</p>
+<p><a href="http://factordb.com/" target="_blank" rel="noopener">在线分解质因数</a></p>
+<p>得到结果：<br>          q = 302825536744096741518546212761194311477<br>          p = 325045504186436346209877301320131277983</p>
+<p>这里推荐一个脚本 rsatool.py 专门用于RSA算法的脚本<br>加上参数运行脚本，生成私钥private.pem 命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python rsatool.py -o private.pem -e 65537 -p 302825536744096741518546212761194311477 -q 325045504186436346209877301320131277983t</span><br></pre></td></tr></table></figure>
+<p>最后再用openssl，一波带走这个题 命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message1 -inkey private.pem -out flag1.dec</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message2 -inkey private.pem -out flag2.dec</span><br><span class="line">openssl rsautl -decrypt -<span class="keyword">in</span> encrypted.message3 -inkey private.pem -out flag3.dec</span><br></pre></td></tr></table></figure>
+<h3 id="二、My-math-is-bad-150pt"><a href="#二、My-math-is-bad-150pt" class="headerlink" title="二、My math is bad(150pt)"></a>二、My math is bad(150pt)</h3><p>程序是64位elf文件，直接丢入IDA分析，可以知道关键函数两个400766和400B16，先进入400766函数中:先是判断输入长度是否为32，就确定了字符串长度为32，我将这些看起来很乱的变量名称重新命名并设置了Hide casts</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">if</span> ( strlen(s0) == 32 )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = s4;</span><br><span class="line">    v4 = s5;</span><br><span class="line">    v5 = s6;</span><br><span class="line">    v6 = s7;</span><br><span class="line">    result = 0;</span><br><span class="line">    <span class="keyword">if</span> ( s1 * *s0 - s3 * s2 == 2652042832920173142LL</span><br><span class="line">      &amp;&amp; 3LL * s2 + 4LL * s3 - s1 - 2LL * *s0 == 397958918</span><br><span class="line">      &amp;&amp; 3 * *s0 * s3 - s2 * s1 == 3345692380376715070LL</span><br><span class="line">      &amp;&amp; 27LL * s1 + *s0 - 11LL * s3 - s2 == 40179413815LL )</span><br><span class="line">    &#123;</span><br><span class="line">      srand(s2 ^ s1 ^ *s0 ^ s3);</span><br><span class="line">      v1 = rand() % 50;</span><br><span class="line">      v2 = rand() % 50;</span><br><span class="line">      v7 = rand() % 50;</span><br><span class="line">      v8 = rand() % 50;</span><br><span class="line">      v9 = rand() % 50;</span><br><span class="line">      v10 = rand() % 50;</span><br><span class="line">      v11 = rand() % 50;</span><br><span class="line">      v12 = rand() % 50;</span><br><span class="line">      <span class="keyword">if</span> ( v6 * v2 + v3 * v1 - v4 - v5 == 61799700179LL</span><br><span class="line">        &amp;&amp; v6 + v3 + v5 * v8 - v4 * v7 == 48753725643LL</span><br><span class="line">        &amp;&amp; v3 * v9 + v4 * v10 - v5 - v6 == 59322698861LL</span><br><span class="line">        &amp;&amp; v5 * v12 + v3 - v4 - v6 * v11 == 51664230587LL )</span><br><span class="line">      &#123;</span><br><span class="line">        result = 1;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    result = 0LL;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就可以明显看出字符串被分为了8段int型的值(s0~s7)，我们需要先求出前4段，解方程组(四元一次方程组)</p>
+<p>z3求解器：z3是由微软公司开发的一个优秀的SMT求解器（也就定理证明器），它能够检查逻辑表达式的可满足性。linux上的安装方法如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install z3-solver</span><br></pre></td></tr></table></figure>
+<p>安装好后我们就可以在python脚本里调用z3这个库，下面上脚本</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">import struct</span><br><span class="line">s=[Int(<span class="string">'serial%d'</span> % i) <span class="keyword">for</span> i <span class="keyword">in</span> range(4)]</span><br><span class="line">solver = Solver()</span><br><span class="line"></span><br><span class="line">solver.add(s[1]*s[0]-s[3]*s[2] == 2652042832920173142)</span><br><span class="line">solver.add(s[2]*3+s[3]*4<span class="_">-s</span>[1]-s[0]*2 == 397958918)</span><br><span class="line">solver.add(s[0]*3*s[3]-s[2]*s[1] == 3345692380376715070)</span><br><span class="line">solver.add(s[1]*27+s[0]-s[3]*11<span class="_">-s</span>[2] == 40179413815)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(solver.check())  <span class="comment">#必须要有这个检查，格式基本固定的</span></span><br><span class="line">answer=solver.model()</span><br><span class="line">res = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> s:</span><br><span class="line">	num = answer.eval(d).as_long()</span><br><span class="line">        <span class="built_in">print</span> hex(num)</span><br><span class="line">	res += struct.pack(<span class="string">'&lt;L'</span>, num)</span><br><span class="line"><span class="built_in">print</span> repr(res)</span><br></pre></td></tr></table></figure>
+<p>通过解此方程组，我们轻易得到了前四段flag</p>
+<p>接着随机数种子是前四段异或运算后的值，这里不用去计算它，我们用gdb动态调试<br>(这里犯了个错误，以为只要是随机数种子相同的，那么生成的伪随机数也一样，直接计算出异或后的值，然后生成的伪随机数和程序实际运行产生的伪随机数根本不一样，所以选择动态调试)</p>
+<p>gdb在0x4008EF下断，一步一步单步走，可以看到随机数种子的值为0x62d793b</p>
+<p><img src="https://s1.ax1x.com/2018/05/27/ChvB7Q.png" alt="ChvB7Q.png"></p>
+<p>最后获得的伪随机数分别为：0x16,0x27,0x2d,0x2d,0x23,0x29,0xd,0x24<br>下一步再解一个方程组，相同道理，直接上脚本了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">from z3 import *</span><br><span class="line">import struct</span><br><span class="line"></span><br><span class="line">data=[Int(<span class="string">'serial%d'</span> % i) <span class="keyword">for</span> i <span class="keyword">in</span> range(4)]</span><br><span class="line">solver = Solver()</span><br><span class="line"></span><br><span class="line">v3 = data[0]</span><br><span class="line">v4 = data[1]</span><br><span class="line">v5 = data[2]</span><br><span class="line">v6 = data[3]</span><br><span class="line"></span><br><span class="line">v1 = 0x16</span><br><span class="line">v2 = 0x27</span><br><span class="line">v7 = 0x2d</span><br><span class="line">v8 = 0x2d</span><br><span class="line">v9 = 0x23</span><br><span class="line">v10 = 0x29</span><br><span class="line">v11 = 0xd</span><br><span class="line">v12 = 0x24</span><br><span class="line"></span><br><span class="line">solver.add(v6*v2+v3*v1-v4-v5 == 61799700179)</span><br><span class="line">solver.add(v6+v3+v5*v8-v4*v7 == 48753725643)</span><br><span class="line">solver.add(v3*v9+v4*v10-v5-v6 == 59322698861)</span><br><span class="line">solver.add(v5*v12+v3-v4-v6*v11 == 51664230587)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(solver.check())</span><br><span class="line">answer=solver.model()</span><br><span class="line">res = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> d <span class="keyword">in</span> data:</span><br><span class="line">	num = answer.eval(d).as_long()</span><br><span class="line">        <span class="built_in">print</span> hex(num)</span><br><span class="line">	res += struct.pack(<span class="string">'&lt;L'</span>, num)</span><br><span class="line"><span class="built_in">print</span> repr(res)</span><br></pre></td></tr></table></figure>
+<p>获得整段字符串后，进入400B16函数中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">  v35 = *MK_FP(__FS__, 40LL);</span><br><span class="line">  v3 = 39;</span><br><span class="line">  v4 = -20;</span><br><span class="line">  v5 = 19;</span><br><span class="line">  v6 = 1;</span><br><span class="line">  v7 = 7;</span><br><span class="line">  v8 = 6;</span><br><span class="line">  v9 = 52;</span><br><span class="line">  v10 = -61;</span><br><span class="line">  v11 = 72;</span><br><span class="line">  v12 = -57;</span><br><span class="line">  v13 = -33;</span><br><span class="line">  v14 = -79;</span><br><span class="line">  v15 = -97;</span><br><span class="line">  v16 = -37;</span><br><span class="line">  v17 = 25;</span><br><span class="line">  v18 = 45;</span><br><span class="line">  v19 = 4;</span><br><span class="line">  v20 = -15;</span><br><span class="line">  v21 = -111;</span><br><span class="line">  v22 = 10;</span><br><span class="line">  v23 = -94;</span><br><span class="line">  v24 = -46;</span><br><span class="line">  v25 = 21;</span><br><span class="line">  v26 = -43;</span><br><span class="line">  v27 = -19;</span><br><span class="line">  v28 = 53;</span><br><span class="line">  v29 = -112;</span><br><span class="line">  v30 = -36;</span><br><span class="line">  v31 = -44;</span><br><span class="line">  v32 = 60;</span><br><span class="line">  v33 = 63;</span><br><span class="line">  v34 = -12;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"flag&#123;"</span>);</span><br><span class="line">  <span class="keyword">for</span> ( i = 0; i &lt; strlen(s0); ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    srand(*&amp;s0[i]);</span><br><span class="line">    v0 = rand();</span><br><span class="line">    putchar(*(&amp;v3 + i) ^ v0 % 255);</span><br><span class="line">  &#125;</span><br><span class="line">  puts(<span class="string">"&#125;"</span>);</span><br><span class="line">  <span class="built_in">return</span> *MK_FP(__FS__, 40LL) ^ v35;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里是对输入的字符串进行简单的运算：<br>取每个字节作随机数种子，产生伪随机数，然后再与v3开始的数据进行异或操作</p>
+<p>写脚本太麻烦了，运行后输入刚刚得到的整段字符串，直接一波带走这个题.</p>
+<p><a href="https://imgchr.com/i/C4DeeJ" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/28/C4DeeJ.png" alt="C4DeeJ.png"></a></p>
+<h3 id="三、leftright-150pt"><a href="#三、leftright-150pt" class="headerlink" title="三、leftright(150pt)"></a>三、leftright(150pt)</h3><p>拿到题目后发现有UPX壳，不过也不用脱壳，ESP定律直接到达程序入口点<br>先查找一波字符串，发现疑似flag打乱后长度为29的字符串</p>
+<p><img src="https://s1.ax1x.com/2018/05/28/ChxrDO.png" alt="ChxrDO.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s_imsaplw_e_siishtnt&#123;g_ialt&#125;F</span><br></pre></td></tr></table></figure>
+<p>那么如果为了节省时间，自然不必弄清程序流程，先构造一个字符串：小写字母26个+3个数字</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abcdefghijklmnopqrstuvwxyz123</span><br></pre></td></tr></table></figure>
+<p>用OD动态调试，找到最终字符串比较的地方下断，输入我们构造的字符串，右边的寄存器窗口直接显示了已经打乱后的另一串字符串为：</p>
+<p><img src="https://s1.ax1x.com/2018/05/28/ChxsbD.png" alt="ChxsbD.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">onpqmlrskjtuihvwgfxyedz1cb23a</span><br></pre></td></tr></table></figure>
+<p>接下来就根据这最终打乱后的每个字符的位置，一波带走这个题，写出脚本如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">str0 = <span class="string">"s_imsaplw_e_siishtnt&#123;g_ialt&#125;F"</span>  </span><br><span class="line">str1 = <span class="string">"abcdefghijklmnopqrstuvwxyz123"</span>  </span><br><span class="line">str2 = <span class="string">"onpqmlrskjtuihvwgfxyedz1cb23a"</span>  </span><br><span class="line">flag = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> str1:  </span><br><span class="line">    position=str2.find(i)  </span><br><span class="line">    flag+=str0[position]</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> flag</span><br></pre></td></tr></table></figure>
+<h3 id="四、obfuscation-and-encode（250pt）"><a href="#四、obfuscation-and-encode（250pt）" class="headerlink" title="四、obfuscation and encode（250pt）"></a>四、obfuscation and encode（250pt）</h3><p>这道题做的时间比较长，主要里面有很多混淆的代码，没找到关键的地方，心态就崩了<br>丢入IDA中分析，两个关键的函数fencode和encode，可以明显看出是我们输入的字符串经过两层加密后与 “lUFBuT7hADvItXEGn7KgTEjqw8U5VQUq” 进行比较，相同即为正确flag.</p>
+<p>在fencode函数的代码中，采用了很多while进行混淆，其实关键的地方也就三处</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1.if ( len != 24 ) //这里判断了字符串总长度为24</span><br><span class="line"></span><br><span class="line">2.sum += *(&amp;str[4 * v11] + v8) * *(&amp;m[4 * v10] + v8) //这里v11&lt;6 v10&lt;4 v8&lt;4</span><br><span class="line">输入的str字符串与m字符串相乘后求和，是个4x4矩阵乘法</span><br><span class="line"></span><br><span class="line">3.v6 = i++; str_out[v6] = sum % 127; //这里输出str0 % 127运算后的字符串</span><br></pre></td></tr></table></figure>
+<p>静态分析的话，沿着控制流分析一波整个流程类似于以下C代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(v11=0; v11&lt;6; v11++)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">for</span>(v10=0; v10&lt;4; v10++)</span><br><span class="line">  &#123;</span><br><span class="line">    sum = 0;</span><br><span class="line">    <span class="keyword">for</span>(v8=0; v8&lt;4; v8++)</span><br><span class="line">    &#123;</span><br><span class="line">      sum += str[4 * v11 + v8] * m[4 * v10 + v8];</span><br><span class="line">    &#125;</span><br><span class="line">    str_out[i++] = sum % 127;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>嵌套循环运算后输出str_out字符串，在encode中对str_out再次加密，找到算法特征处：</p>
+<p><a href="https://imgchr.com/i/C4BfMD" target="_blank" rel="noopener"><img src="https://s1.ax1x.com/2018/05/28/C4BfMD.jpg" alt="C4BfMD.jpg"></a></p>
+<p>从这里可以看出这是一个的base64的算法，不过编码表被改为了：<br>“FeVYKw6a0lDIOsnZQ5EAf2MvjS1GUiLWPTtH4JqRgu3dbC8hrcNo9/mxzpXBky7+”<br>base64加密后的字符串与”lUFBuT7hADvItXEGn7KgTEjqw8U5VQUq” 比较</p>
+<p>那么思路已经很明显了，第一层加密同样用Z3求解器解方程组(爆破也可以，但等的太久太久了)，第二层加密在网上找个脚本改下编码表然后解码</p>
+<p>先上base64解密脚本：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">from numpy import *</span><br><span class="line">import numpy as np</span><br><span class="line">import base64</span><br><span class="line">import string</span><br><span class="line">import chardet</span><br><span class="line">import ctypes</span><br><span class="line"></span><br><span class="line">base64_charset = <span class="string">'FeVYKw6a0lDIOsnZQ5EAf2MvjS1GUiLWPTtH4JqRgu3dbC8hrcNo9/mxzpXBky7+'</span></span><br><span class="line"></span><br><span class="line">letters = list(base64_charset)</span><br><span class="line"></span><br><span class="line">def encode(input_str):</span><br><span class="line">    <span class="comment"># 对每一个字节取ascii数值或unicode数值，然后转换为2进制</span></span><br><span class="line">    str_ascii_list = [<span class="string">'&#123;:0&gt;8&#125;'</span>.format(str(bin(ord(i))).replace(<span class="string">'0b'</span>, <span class="string">''</span>))</span><br><span class="line">                      <span class="keyword">for</span> i <span class="keyword">in</span> input_str]</span><br><span class="line">    output_str = <span class="string">''</span></span><br><span class="line">    <span class="comment"># 不够3的整数倍 补齐所需要的次数</span></span><br><span class="line">    equal_num = 0</span><br><span class="line">    <span class="keyword">while</span> str_ascii_list:</span><br><span class="line">        temp_list = str_ascii_list[:3]</span><br><span class="line">        <span class="keyword">if</span> len(temp_list) != 3:</span><br><span class="line">            <span class="keyword">while</span> len(temp_list) &lt; 3:</span><br><span class="line">                equal_num += 1</span><br><span class="line">                temp_list += [<span class="string">'0'</span>*8]</span><br><span class="line">        temp_str = <span class="string">''</span>.join(temp_list)</span><br><span class="line">        <span class="comment"># 三个8字节的二进制 转换为4个6字节的二进制</span></span><br><span class="line">        temp_str_list = [temp_str[x:x+6] <span class="keyword">for</span> x <span class="keyword">in</span> [0, 6, 12, 18]]</span><br><span class="line">        <span class="comment"># 二进制转为10进制</span></span><br><span class="line">        temp_str_list = [int(x, 2) <span class="keyword">for</span> x <span class="keyword">in</span> temp_str_list]</span><br><span class="line">        <span class="comment"># 判断是否为补齐的字符 做相应的处理</span></span><br><span class="line">        <span class="keyword">if</span> equal_num:</span><br><span class="line">            temp_str_list = temp_str_list[0:4-equal_num]</span><br><span class="line">        output_str += <span class="string">''</span>.join([letters[x] <span class="keyword">for</span> x <span class="keyword">in</span> temp_str_list])</span><br><span class="line">        str_ascii_list = str_ascii_list[3:]</span><br><span class="line">    output_str = output_str + <span class="string">'='</span> * equal_num</span><br><span class="line">    <span class="comment">#print(output_str)</span></span><br><span class="line">    <span class="built_in">return</span> output_str</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def decode(input_str):</span><br><span class="line">    <span class="comment"># 对每一个字节取索引，然后转换为2进制</span></span><br><span class="line">    str_ascii_list = [<span class="string">'&#123;:0&gt;6&#125;'</span>.format(str(bin(letters.index(i))).replace(<span class="string">'0b'</span>, <span class="string">''</span>))</span><br><span class="line">                      <span class="keyword">for</span> i <span class="keyword">in</span> input_str <span class="keyword">if</span> i != <span class="string">'='</span>]</span><br><span class="line">    output_str = <span class="string">''</span></span><br><span class="line">    equal_num = input_str.count(<span class="string">'='</span>)</span><br><span class="line">    <span class="keyword">while</span> str_ascii_list:</span><br><span class="line">        temp_list = str_ascii_list[:4]</span><br><span class="line">        temp_str = <span class="string">''</span>.join(temp_list)</span><br><span class="line">        <span class="comment"># 补够8位</span></span><br><span class="line">        <span class="keyword">if</span> len(temp_str) % 8 != 0:</span><br><span class="line">            temp_str = temp_str[0:-1*equal_num*2]</span><br><span class="line">        <span class="comment"># 4个6字节的二进制  转换  为三个8字节的二进制 </span></span><br><span class="line">        temp_str_list = [temp_str[x:x+8] <span class="keyword">for</span> x <span class="keyword">in</span> [0, 8, 16]]</span><br><span class="line">        <span class="comment"># 二进制转为10进制</span></span><br><span class="line">        temp_str_list = [int(x, 2) <span class="keyword">for</span> x <span class="keyword">in</span> temp_str_list <span class="keyword">if</span> x]</span><br><span class="line">        output_str += <span class="string">''</span>.join([chr(x) <span class="keyword">for</span> x <span class="keyword">in</span> temp_str_list])</span><br><span class="line">        str_ascii_list = str_ascii_list[4:]</span><br><span class="line">    <span class="comment">#print(output_str)</span></span><br><span class="line">    <span class="built_in">return</span> output_str</span><br><span class="line"></span><br><span class="line">str0 = decode(<span class="string">"lUFBuT7hADvItXEGn7KgTEjqw8U5VQUq"</span>)</span><br><span class="line">int = [0]*24</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(24):</span><br><span class="line">  int[i] = ord(str0[i])</span><br><span class="line"><span class="built_in">print</span> int</span><br></pre></td></tr></table></figure>
+<p>再附上z3求解脚本,那么也就一波带走了今年ISCC的最后一道逆向题</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">from z3 import*</span><br><span class="line"></span><br><span class="line">key = [37, 192, 59, 166, 31, 175, 76, 165, 203, 139, 164, 155, 59, 225, 40, 133, 38, 38, 22, 231, 17, 9, 7, 38]</span><br><span class="line">m =[2, 2, 4, 4294967291, 1, 1, 3, 4294967293, 4294967295, 4294967294, 4294967293, 4, 4294967295, 0, 4294967294, 2]</span><br><span class="line"></span><br><span class="line">f1 = lambda x1, x2, x3, x4: (x1 * m[0] + x2 * m[1] + x3 * m[2] + x4 * m[3]) &amp; 0xff</span><br><span class="line">f2 = lambda x1, x2, x3, x4: (x1 * m[4] + x2 * m[5] + x3 * m[6] + x4 * m[7]) &amp; 0xff</span><br><span class="line">f3 = lambda x1, x2, x3, x4: (x1 * m[8] + x2 * m[9] + x3 * m[10] + x4 * m[11]) &amp; 0xff</span><br><span class="line">f4 = lambda x1, x2, x3, x4: (x1 * m[12] + x2 * m[13] + x3 * m[14] + x4 * m[15]) &amp; 0xff</span><br><span class="line"></span><br><span class="line">s = Solver()</span><br><span class="line">flag = [BitVec(str(i), 16) <span class="keyword">for</span> i <span class="keyword">in</span>  range(24)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(6):</span><br><span class="line">    s.add(f1(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 0])</span><br><span class="line">    s.add(f2(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 1])</span><br><span class="line">    s.add(f3(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 2])</span><br><span class="line">    s.add(f4(flag[4 * i + 0], flag[4 * i + 1], flag[4 * i + 2], flag[4 * i + 3]) == key[i * 4 + 3])</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(24):</span><br><span class="line">    s.add(flag[i]&gt;=32)</span><br><span class="line">    s.add(flag[i]&lt;=127)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(s.check())</span><br><span class="line">answer=s.model()</span><br><span class="line">res = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(24):</span><br><span class="line">  res += chr(answer.eval(flag[i]).as_long())</span><br><span class="line"><span class="built_in">print</span> repr(res)</span><br></pre></td></tr></table></figure>
+<p><a href="https://pan.baidu.com/s/1_acOeyZZUsiJlVneeKI9kw" target="_blank" rel="noopener">题目打包下载</a>     密码：d1bm</p>
+
+        
+        <div id="comment-container">
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+
+        
+
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
 
 
 
 
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.xml"
+    window.hexo_root = "/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+</html>
