@@ -1,80 +1,37 @@
-$(document).ready(function(){
+// To make images retina, add a class "2x" to the img element
+// and add a <image-name>@2x.png image. Assumes jquery is loaded.
 
 
-
-    //mobile menu toggling
-    $("#menu_icon").click(function(){
-        $("header nav ul").toggleClass("show_menu");
-        $("#menu_icon").toggleClass("close_menu");
-        return false;
-    });
-
-    
-
-    //Contact Page Map Centering
-    var hw = $('header').width() + 50;
-    var mw = $('#map').width();
-    var wh = $(window).height();
-    var ww = $(window).width();
-
-    $('#map').css({
-        "max-width" : mw,
-        "height" : wh
-    });
-
-    if(ww>1100){
-         $('#map').css({
-            "margin-left" : hw
-        });
-    }
-
-   
-
-
-
-    //Tooltip
-    $("a").mouseover(function(){
-
-        var attr_title = $(this).attr("data-title");
-
-        if( attr_title == undefined || attr_title == "") return false;
-        
-        $(this).after('<span class="tooltip"></span>');
-
-        var tooltip = $(".tooltip");
-        tooltip.append($(this).data('title'));
-
-         
-        var tipwidth = tooltip.outerWidth();
-        var a_width = $(this).width();
-        var a_hegiht = $(this).height() + 3 + 4;
-
-        //if the tooltip width is smaller than the a/link/parent width
-        if(tipwidth < a_width){
-            tipwidth = a_width;
-            $('.tooltip').outerWidth(tipwidth);
-        }
-
-        var tipwidth = '-' + (tipwidth - a_width)/2;
-        $('.tooltip').css({
-            'left' : tipwidth + 'px',
-            'bottom' : a_hegiht + 'px'
-        }).stop().animate({
-            opacity : 1
-        }, 200);
-       
-
-    });
-
-    $("a").mouseout(function(){
-        var tooltip = $(".tooltip");       
-        tooltip.remove();
-    });
-
-
-});
-
-
-
-
-
+function isRetina() {
+	var mediaQuery = "(-webkit-min-device-pixel-ratio: 1.5),\
+					  (min--moz-device-pixel-ratio: 1.5),\
+					  (-o-min-device-pixel-ratio: 3/2),\
+					  (min-resolution: 1.5dppx)";
+ 
+	if (window.devicePixelRatio > 1)
+		return true;
+ 
+	if (window.matchMedia && window.matchMedia(mediaQuery).matches)
+		return true;
+ 
+	return false;
+};
+ 
+ 
+function retina() {
+	
+	if (!isRetina())
+		return;
+	
+	$("img.2x").map(function(i, image) {
+		
+		var path = $(image).attr("src");
+		
+		path = path.replace(".png", "@2x.png");
+		path = path.replace(".jpg", "@2x.jpg");
+		
+		$(image).attr("src", path);
+	});
+};
+ 
+$(document).ready(retina);
