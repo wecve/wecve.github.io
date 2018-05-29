@@ -7,14 +7,14 @@
     </url>
     
     <url>
-        <loc>http://wecve.com/404.html</loc>
-        <lastmod>2018-05-28T03:58:45.000Z</lastmod>
+        <loc>http://wecve.com/about/</loc>
+        <lastmod>2018-05-29T02:51:27.858Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
     </url>
     
     <url>
-        <loc>http://wecve.com/about/</loc>
+        <loc>http://wecve.com/404.html</loc>
         <lastmod>2018-05-28T03:58:45.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
